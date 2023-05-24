@@ -7,7 +7,7 @@ export const NavBar = (): ReactElement => {
   return (
     <div>
       <button onClick={() => navigate("/")}>Home</button>
-      <button onClick={() => navigate("/multiplication-game")}>
+      <button onClick={() => navigate("/multiplication")}>
         Multiplication
       </button>
       <button onClick={() => navigate("/points")}>Points</button>
