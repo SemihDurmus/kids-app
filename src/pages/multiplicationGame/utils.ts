@@ -28,7 +28,7 @@ const shuffleArray = (array: OptionType[]) => {
 };
 
 export const createQuestionSet = (level: number): QuestionSetType => {
-  const min = level == 1 ? 1 : 2;
+  const min = level === 1 ? 1 : 2;
   const max = level === 1 ? 10 : 9;
   const nr1 = getRandomNr(min, max);
   const nr2 = getRandomNr(min, max);
@@ -55,13 +55,15 @@ export const handleSelectAnswer = (
   nrOfWrongAnswers: number,
   setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>,
   nrOfAnsweredQs: number,
-  setNrOfAnsweredQs: React.Dispatch<React.SetStateAction<number>>
+  setNrOfAnsweredQs: React.Dispatch<React.SetStateAction<number>>,
+  setRemainingSeconds: React.Dispatch<React.SetStateAction<number>>
 ) => {
   setNrOfAnsweredQs(nrOfAnsweredQs + 1);
+  setRemainingSeconds(16 - level);
   if (opt.isCorrect) {
     setScore(score + Math.floor(level / 2));
   } else {
-    setNrOfWrongAnswers(nrOfWrongAnswers + 1);
+    setNrOfWrongAnswers((pre) => pre + 1);
     nrOfWrongAnswers === 2 && setTimeout(() => alert("GAME OVER"));
   }
 };

@@ -34,7 +34,7 @@ export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
               size="small"
             >
               {levelsArray.map((el) => (
-                <MenuItem value={el}>{`Level: ${el}`}</MenuItem>
+                <MenuItem key={el} value={el}>{`Level: ${el}`}</MenuItem>
               ))}
             </Select>
           </FormControl>
