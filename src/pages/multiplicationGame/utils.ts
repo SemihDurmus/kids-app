@@ -1,6 +1,6 @@
 import { OptionType, QuestionSetType } from "./types";
 
-const createRandomNumber = (min: number, max: number): number => {
+const getRandomNr = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -9,12 +9,12 @@ const createWrongOption = (
   min: number,
   max: number
 ): OptionType => {
-  let num1 = createRandomNumber(min, max);
-  let num2 = createRandomNumber(min, max);
+  let num1 = getRandomNr(min, max);
+  let num2 = getRandomNr(min, max);
   const optionNrArray = options.map((el) => el.option);
   while (optionNrArray.includes(num1 * num2)) {
-    num1 = createRandomNumber(min, max);
-    num2 = createRandomNumber(min, max);
+    num1 = getRandomNr(min, max);
+    num2 = getRandomNr(min, max);
   }
   return { option: num1 * num2, isCorrect: false };
 };
@@ -30,8 +30,8 @@ const shuffleArray = (array: OptionType[]) => {
 export const createQuestionSet = (level: number): QuestionSetType => {
   const min = level;
   const max = level === 1 ? 10 : 9;
-  const nr1 = createRandomNumber(min, max);
-  const nr2 = createRandomNumber(min, max);
+  const nr1 = getRandomNr(min, max);
+  const nr2 = getRandomNr(min, max);
   const answer = nr1 * nr2;
   const correctOption = { option: answer, isCorrect: true };
   let options = [correctOption];
