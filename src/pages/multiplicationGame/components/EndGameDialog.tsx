@@ -1,13 +1,14 @@
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { ReactElement, Ref, forwardRef } from "react";
+
 import Slide from "@mui/material/Slide";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import { ReactElement, Ref, forwardRef } from "react";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { TransitionProps } from "@mui/material/transitions";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -48,7 +49,7 @@ const EndGameDialog = ({
         GAME IS OVER
       </DialogTitle>
       <DialogContent>
-        <Row>Good job!</Row>
+        <Row>{score > 10 ? "Good job!" : "Could be better next time"}</Row>
         <Row>
           You answered <span>{nrOfAnsweredQs}</span> questions
         </Row>

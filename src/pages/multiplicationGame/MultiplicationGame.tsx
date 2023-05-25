@@ -45,7 +45,7 @@ export const MultiplicationGame = (): ReactElement => {
   );
 
   useEffect(() => {
-    if (!openDialog) {
+    if (!openDialog && mode === "gameOn") {
       const countdown = setInterval(() => {
         setRemainingSeconds((prevSeconds) =>
           prevSeconds > 0 ? prevSeconds - 1 : 0
@@ -56,11 +56,10 @@ export const MultiplicationGame = (): ReactElement => {
         clearInterval(countdown);
       };
     }
-  }, [nrOfAnsweredQs, openDialog]);
+  }, [nrOfAnsweredQs, openDialog, mode]);
 
   useEffect(() => {
     if (!remainingSeconds) {
-      setNrOfAnsweredQs((pre) => pre + 1);
       setNrOfWrongAnswers((pre) => pre + 1);
       setRemainingSeconds(16 - level);
       nrOfWrongAnswers === 2 &&

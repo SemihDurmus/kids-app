@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { OptionType } from "../types";
 
 const Answers = ({ options, handleClick }: IAnswers) => {
