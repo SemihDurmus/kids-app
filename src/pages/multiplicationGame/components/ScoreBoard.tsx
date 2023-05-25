@@ -6,11 +6,13 @@ export const ScoreBoard = (props: {
   score: number;
   level: number;
   nrOfWrongAnswers: number;
+  remainingSeconds: number;
 }): ReactElement => {
-  const { score, level, nrOfWrongAnswers } = props;
+  const { score, level, nrOfWrongAnswers, remainingSeconds } = props;
   return (
-    <>
+    <div>
       <Row>
+        {remainingSeconds && <Timer>{remainingSeconds}</Timer>}{" "}
         <RightSide>
           <StyledStack direction="row" spacing={1}>
             <AssetBox>Score</AssetBox>
@@ -23,13 +25,29 @@ export const ScoreBoard = (props: {
         </RightSide>
       </Row>
       <SkullsBox>{Array(nrOfWrongAnswers).fill("💀").join("")}</SkullsBox>
-    </>
+    </div>
   );
 };
 
 const Row = styled.div`
   display: flex;
   justify-content: flex-end;
+  position: relative;
+`;
+
+const Timer = styled.div`
+  font-size: 2.5rem;
+  font-family: "Oswald";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid red;
+  height: 4rem;
+  width: 4rem;
+  line-height: 4rem;
+  border-radius: 50%;
+  text-align: center;
 `;
 
 const RightSide = styled.div`

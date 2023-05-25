@@ -79,11 +79,11 @@ export const MultiplicationGame = (): ReactElement => {
       maxWidth={false}
       sx={{ backgroundColor: bgColor, pt: 2, height: "92vh" }}
     >
-      <h1>{remainingSeconds}</h1>
       <ScoreBoard
         score={score}
         level={level}
         nrOfWrongAnswers={nrOfWrongAnswers}
+        remainingSeconds={remainingSeconds}
       />
       <Question nr1={nr1} nr2={nr2} />
       <Answers options={options} handleClick={handleClick} />
