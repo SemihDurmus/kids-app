@@ -4,3 +4,4 @@ export type QuestionSetType = {
   nr2: number;
   options: OptionType[];
 };
+export type ModeType = "gameOn" | "gameOff";
