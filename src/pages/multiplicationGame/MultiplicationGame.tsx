@@ -1,13 +1,18 @@
+import { Container } from "@mui/material";
 import { ReactElement, useState } from "react";
 
 import GameOff from "./components/GameOff";
 import { ModeType, OptionType } from "./types";
-import { createQuestionSet, handleSelectAnswer } from "./utils";
+import ScoreBoard from "./components/ScoreBoard";
+import { createQuestionSet, handleSelectAnswer, selectBgColor } from "./utils";
+import Question from "./components/Question";
+import Answers from "./components/Answers";
 
 export const MultiplicationGame = (): ReactElement => {
   const [mode, setMode] = useState<ModeType>("gameOff");
   const [score, setScore] = useState(0);
   const [nrOfWrongAnswers, setNrOfWrongAnswers] = useState(0);
+  const [nrOfAnsweredQs, setNrOfAnsweredQs] = useState(0);
   const [level, setLevel] = useState(1);
 
   const handleClick = (opt: OptionType) => {
@@ -17,9 +22,13 @@ export const MultiplicationGame = (): ReactElement => {
       score,
       level,
       nrOfWrongAnswers,
-      setNrOfWrongAnswers
+      setNrOfWrongAnswers,
+      nrOfAnsweredQs,
+      setNrOfAnsweredQs
     );
   };
+
+  const bgColor = selectBgColor(level);
 
   const { nr1, nr2, options } = createQuestionSet(level);
   if (mode === "gameOff") {
@@ -27,17 +36,18 @@ export const MultiplicationGame = (): ReactElement => {
   }
 
   return (
-    <div>
-      <h2>{`Score is ${score}`}</h2>
-      <h2>{`LEVEL: ${level}`}</h2>
-      {Array(nrOfWrongAnswers).fill("💀").join("")}
-      <h3>{`${nr1} x ${nr2}`}</h3>
-      {options.map((el, index) => (
-        <button key={index} onClick={() => handleClick(el)}>
-          {el.option}
-        </button>
-      ))}
-    </div>
+    <Container
+      maxWidth={false}
+      sx={{ backgroundColor: bgColor, pt: 2, height: "100%" }}
+    >
+      <ScoreBoard
+        score={score}
+        level={level}
+        nrOfWrongAnswers={nrOfWrongAnswers}
+      />
+      <Question nr1={nr1} nr2={nr2} />
+      <Answers options={options} handleClick={handleClick} />
+    </Container>
   );
 };
 

@@ -53,13 +53,37 @@ export const handleSelectAnswer = (
   score: number,
   level: number,
   nrOfWrongAnswers: number,
-  setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>
+  setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>,
+  nrOfAnsweredQs: number,
+  setNrOfAnsweredQs: React.Dispatch<React.SetStateAction<number>>
 ) => {
+  setNrOfAnsweredQs(nrOfAnsweredQs + 1);
   if (opt.isCorrect) {
     setScore(score + Math.floor(level * 1.3));
-  } else if (nrOfWrongAnswers === 3) {
-    alert("GAME OVER");
   } else {
     setNrOfWrongAnswers(nrOfWrongAnswers + 1);
+    nrOfWrongAnswers === 2 && setTimeout(() => alert("GAME OVER"));
+  }
+};
+
+export const selectBgColor = (level: number): string => {
+  switch (level) {
+    case 1:
+    case 2:
+      return "#FEF001";
+    case 3:
+    case 4:
+      return "#FFCE03";
+    case 5:
+    case 6:
+      return "#FD9A01";
+    case 7:
+    case 8:
+      return "#FD6104";
+    case 9:
+    case 19:
+      return "#FF2C05";
+    default:
+      return "#F00505";
   }
 };
