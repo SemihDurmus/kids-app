@@ -6,6 +6,7 @@ import Answers from "./components/Answers";
 import Question from "./components/Question";
 import { ModeType, OptionType } from "./types";
 import ScoreBoard from "./components/ScoreBoard";
+import EndGameDialog from "./components/EndGameDialog";
 import { createQuestionSet, handleSelectAnswer, selectBgColor } from "./utils";
 
 export const MultiplicationGame = (): ReactElement => {
@@ -15,18 +16,24 @@ export const MultiplicationGame = (): ReactElement => {
   const [nrOfAnsweredQs, setNrOfAnsweredQs] = useState(0);
   const [level, setLevel] = useState(1);
   const [remainingSeconds, setRemainingSeconds] = useState(16 - level);
+  const [openDialog, setOpenDialog] = useState(false);
 
+  const resetGame = () => {
+    setNrOfWrongAnswers(0);
+    setNrOfAnsweredQs(0);
+    setScore(0);
+    setMode("gameOff");
+  };
   const handleClick = (opt: OptionType) => {
     handleSelectAnswer(
       opt,
       setScore,
-      score,
       level,
       nrOfWrongAnswers,
       setNrOfWrongAnswers,
-      nrOfAnsweredQs,
       setNrOfAnsweredQs,
-      setRemainingSeconds
+      setRemainingSeconds,
+      setOpenDialog
     );
   };
 
@@ -34,11 +41,11 @@ export const MultiplicationGame = (): ReactElement => {
   const { nr1, nr2, options } = useMemo(
     () => createQuestionSet(level),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nrOfAnsweredQs, nrOfWrongAnswers, level]
+    [nrOfAnsweredQs, nrOfWrongAnswers, level, openDialog]
   );
 
   useEffect(() => {
-    if (mode === "gameOn") {
+    if (!openDialog) {
       const countdown = setInterval(() => {
         setRemainingSeconds((prevSeconds) =>
           prevSeconds > 0 ? prevSeconds - 1 : 0
@@ -49,15 +56,19 @@ export const MultiplicationGame = (): ReactElement => {
         clearInterval(countdown);
       };
     }
-  }, [nrOfAnsweredQs, mode]);
+  }, [nrOfAnsweredQs, openDialog]);
 
   useEffect(() => {
     if (!remainingSeconds) {
       setNrOfAnsweredQs((pre) => pre + 1);
       setNrOfWrongAnswers((pre) => pre + 1);
       setRemainingSeconds(16 - level);
-      nrOfWrongAnswers === 2 && setTimeout(() => setMode("gameOff"));
+      nrOfWrongAnswers === 2 &&
+        setTimeout(() => {
+          setOpenDialog(true);
+        });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [remainingSeconds]);
 
   if (mode === "gameOff") {
@@ -77,6 +88,14 @@ export const MultiplicationGame = (): ReactElement => {
       />
       <Question nr1={nr1} nr2={nr2} />
       <Answers options={options} handleClick={handleClick} />
+      <EndGameDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        resetGame={resetGame}
+        nrOfAnsweredQs={nrOfAnsweredQs}
+        level={level}
+        score={score}
+      />
     </Container>
   );
 };

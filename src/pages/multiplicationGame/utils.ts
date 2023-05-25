@@ -50,21 +50,24 @@ export const createQuestionSet = (level: number): QuestionSetType => {
 export const handleSelectAnswer = (
   opt: OptionType,
   setScore: React.Dispatch<React.SetStateAction<number>>,
-  score: number,
   level: number,
   nrOfWrongAnswers: number,
   setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>,
-  nrOfAnsweredQs: number,
   setNrOfAnsweredQs: React.Dispatch<React.SetStateAction<number>>,
-  setRemainingSeconds: React.Dispatch<React.SetStateAction<number>>
+  setRemainingSeconds: React.Dispatch<React.SetStateAction<number>>,
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  setNrOfAnsweredQs(nrOfAnsweredQs + 1);
+  setNrOfAnsweredQs((prev) => prev + 1);
   setRemainingSeconds(16 - level);
   if (opt.isCorrect) {
-    setScore(score + Math.floor(level / 2));
+    const levelPoint = level === 1 ? 1 : Math.floor(level / 2);
+    setScore((prev) => prev + levelPoint);
   } else {
     setNrOfWrongAnswers((pre) => pre + 1);
-    nrOfWrongAnswers === 2 && setTimeout(() => alert("GAME OVER"));
+    nrOfWrongAnswers === 2 &&
+      setTimeout(() => {
+        setOpenDialog(true);
+      });
   }
 };
 
