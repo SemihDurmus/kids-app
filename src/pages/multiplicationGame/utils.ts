@@ -46,3 +46,20 @@ export const createQuestionSet = (level: number): QuestionSetType => {
     options: shuffleArray(options),
   };
 };
+
+export const handleSelectAnswer = (
+  opt: OptionType,
+  setScore: React.Dispatch<React.SetStateAction<number>>,
+  score: number,
+  level: number,
+  nrOfWrongAnswers: number,
+  setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>
+) => {
+  if (opt.isCorrect) {
+    setScore(score + Math.floor(level * 1.3));
+  } else if (nrOfWrongAnswers === 3) {
+    alert("GAME OVER");
+  } else {
+    setNrOfWrongAnswers(nrOfWrongAnswers + 1);
+  }
+};
