@@ -38,7 +38,7 @@ export const MultiplicationGame = (): ReactElement => {
   return (
     <Container
       maxWidth={false}
-      sx={{ backgroundColor: bgColor, pt: 2, height: "100%" }}
+      sx={{ backgroundColor: bgColor, pt: 2, height: "92vh" }}
     >
       <ScoreBoard
         score={score}

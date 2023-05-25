@@ -33,6 +33,7 @@ const StyledButton = styled.button`
   font-family: "Oswald";
   width: 6rem;
   height: 6rem;
+  border: none;
   border-radius: 50%;
   font-size: 2rem;
   line-height: 2rem;

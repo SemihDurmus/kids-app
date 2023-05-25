@@ -13,7 +13,7 @@ export const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, height: "8vh" }}>
       <AppBar position="sticky" color="transparent">
         <Toolbar>
           <IconButton
@@ -32,7 +32,11 @@ export const NavBar = () => {
               }}
             />
           </IconButton>
-          <Title variant="h6" sx={{ flexGrow: 1 }}>
+          <Title
+            variant="h6"
+            onClick={() => navigate("/")}
+            sx={{ flexGrow: 1, cursor: "pointer" }}
+          >
             Kids App{" "}
           </Title>
           <Box
@@ -44,11 +48,10 @@ export const NavBar = () => {
             }}
           >
             <Box>
-              <button onClick={() => navigate("/")}>Home</button>
               <button onClick={() => navigate("/multiplication")}>
                 Multiplication
               </button>
-              <button onClick={() => navigate("/points")}>Points</button>
+              {/* <button onClick={() => navigate("/points")}>Points</button> */}
             </Box>
             <Chip
               avatar={
