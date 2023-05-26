@@ -47,21 +47,41 @@ export const createQuestionSet = (level: number): QuestionSetType => {
   };
 };
 
+const increaseLevel = (
+  answeredQuestions: number,
+  currentLevel: number
+): boolean => {
+  if (
+    currentLevel === 10 ||
+    answeredQuestions === 0 ||
+    answeredQuestions % 5 !== 0
+  ) {
+    return false;
+  }
+  return true;
+};
+
 export const handleSelectAnswer = (
   opt: OptionType,
   setScore: React.Dispatch<React.SetStateAction<number>>,
   level: number,
+  setLevel: React.Dispatch<React.SetStateAction<number>>,
   nrOfWrongAnswers: number,
   setNrOfWrongAnswers: React.Dispatch<React.SetStateAction<number>>,
+  nrOfAnsweredQs: number,
   setNrOfAnsweredQs: React.Dispatch<React.SetStateAction<number>>,
   setRemainingSeconds: React.Dispatch<React.SetStateAction<number>>,
+  remainingSeconds: number,
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setNrOfAnsweredQs((prev) => prev + 1);
   setRemainingSeconds(16 - level);
   if (opt.isCorrect) {
-    const levelPoint = level === 1 ? 1 : Math.floor(level / 2);
-    setScore((prev) => prev + levelPoint);
+    const pointPerLevel = level === 1 ? 1 : Math.floor(level / 2);
+    const pointPerSeconds = Math.floor(remainingSeconds / 2);
+    setScore((prev) => prev + pointPerLevel + pointPerSeconds);
+    const isLevelUp = increaseLevel(nrOfAnsweredQs, level);
+    isLevelUp && setLevel((pre) => pre + 1);
   } else {
     setNrOfWrongAnswers((pre) => pre + 1);
     nrOfWrongAnswers === 2 &&

@@ -22,6 +22,7 @@ export const MultiplicationGame = (): ReactElement => {
     setNrOfWrongAnswers(0);
     setNrOfAnsweredQs(0);
     setScore(0);
+    setLevel(1);
     setMode("gameOff");
   };
   const handleClick = (opt: OptionType) => {
@@ -29,10 +30,13 @@ export const MultiplicationGame = (): ReactElement => {
       opt,
       setScore,
       level,
+      setLevel,
       nrOfWrongAnswers,
       setNrOfWrongAnswers,
+      nrOfAnsweredQs,
       setNrOfAnsweredQs,
       setRemainingSeconds,
+      remainingSeconds,
       setOpenDialog
     );
   };
