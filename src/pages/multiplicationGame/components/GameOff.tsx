@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 
 import { ModeType } from "../types";
+import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
 
 export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
   const levelsArray = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -59,18 +60,7 @@ interface IGameOff {
 const Wrapper = styled(Container)`
   background-color: #ffc312;
 `;
-const TitleBox = styled.div`
-  text-align: center;
-  height: 20vh;
-  width: 100%;
-  line-height: 20vh;
-  h1 {
-    font-family: "Short stack", cursive;
-    font-size: 3rem;
-    color: #6f1e51;
-    margin: 0;
-  }
-`;
+
 const ControlsBox = styled.div`
   height: 80vh;
   display: flex;

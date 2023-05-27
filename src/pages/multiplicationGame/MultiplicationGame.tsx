@@ -54,7 +54,7 @@ export const MultiplicationGame = (): ReactElement => {
         setRemainingSeconds((prevSeconds) =>
           prevSeconds > 0 ? prevSeconds - 1 : 0
         );
-      }, 500);
+      }, 1000);
 
       return () => {
         clearInterval(countdown);
