@@ -17,6 +17,11 @@ export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
   const handleChange = (e: SelectChangeEvent<number>) => {
     setLevel(Number(e.target.value));
   };
+  const selectStyle = {
+    fontFamily: "Short stack",
+    color: "#EE5A24",
+    fontWeight: "bold",
+  };
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
@@ -33,9 +38,14 @@ export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
               label="Level"
               onChange={handleChange}
               size="small"
+              sx={{ ...selectStyle, color: "#6F1E51" }}
             >
               {levelsArray.map((el) => (
-                <MenuItem key={el} value={el}>{`Level: ${el}`}</MenuItem>
+                <MenuItem
+                  key={el}
+                  sx={selectStyle}
+                  value={el}
+                >{`Level: ${el}`}</MenuItem>
               ))}
             </Select>
           </FormControl>

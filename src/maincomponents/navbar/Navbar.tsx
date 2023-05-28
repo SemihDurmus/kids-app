@@ -1,22 +1,22 @@
 import { useContext } from "react";
+import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 import Box from "@mui/material/Box";
-import { styled } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { Avatar, Chip } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { UserContext } from "../../context/userContext";
 
 export const NavBar = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const hasNameAndId = currentUser.id && currentUser.name;
+  const hasNameAndId = currentUser.id && currentUser.userName;
   return (
-    <Box sx={{ flexGrow: 1, height: "8vh" }}>
+    <Box sx={{ flexGrow: 1, height: "4rem", backgroundColor: "#6F1E51" }}>
       <AppBar position="sticky" color="transparent">
         <Toolbar>
           <IconButton
@@ -28,8 +28,9 @@ export const NavBar = () => {
           >
             <MenuIcon
               sx={{
+                color: "#ffc312",
                 "&:hover": {
-                  color: "red",
+                  color: "#FFC312",
                   opacity: [0.9, 0.8, 0.7],
                 },
               }}
@@ -58,16 +59,46 @@ export const NavBar = () => {
               </Box>
             )}
             {hasNameAndId && (
-              <Chip
-                onClick={() => navigate(`${currentUser.id}/profile`)}
-                label={currentUser.name}
-                avatar={
-                  <Avatar
-                    alt={currentUser.name}
-                    src="/static/images/avatar/1.jpg"
-                  />
-                }
-              />
+              <div>
+                <Chip
+                  onClick={() => navigate(`${currentUser.id}/profile`)}
+                  sx={{
+                    fontWeight: "bold",
+                    backgroundColor: "#ffc312",
+                    fontFamily: "Short stack",
+                    "&:hover": {
+                      color: "#FFC",
+                      backgroundColor: "#F79F1F",
+                      opacity: [0.9, 0.8, 0.7],
+                    },
+                  }}
+                  label={currentUser.userName}
+                  avatar={
+                    <Avatar
+                      alt={currentUser.userName}
+                      src="/static/images/avatar/1.jpg"
+                    />
+                  }
+                />
+                <Chip
+                  onClick={() => {
+                    setCurrentUser && setCurrentUser({ id: "", userName: "" });
+                    navigate("/");
+                  }}
+                  sx={{
+                    fontWeight: "bold",
+                    ml: 2,
+                    fontFamily: "Short stack",
+                    backgroundColor: "#ED4C67",
+                    "&:hover": {
+                      color: "#FFC",
+                      backgroundColor: "#F79F1F",
+                      opacity: [0.9, 0.8, 0.7],
+                    },
+                  }}
+                  label="Log out"
+                />
+              </div>
             )}
           </Box>
         </Toolbar>
@@ -80,4 +111,5 @@ export default NavBar;
 
 const Title = styled(Typography)`
   font-family: "Oswald";
+  color: #ffc312;
 `;

@@ -20,8 +20,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 92vh;
+  height: calc(100vh - 4rem);
   background-color: #ecf0f1;
+  background-color: #009432;
 `;
 
 const BigButton = styled.div`
@@ -29,15 +30,16 @@ const BigButton = styled.div`
   width: 5rem;
   line-height: 5rem;
   text-align: center;
-  border: 1px solid #34495e;
+  border: none;
   border-radius: 1rem;
-  box-shadow: 0px 10px 22px -3px rgba(0, 0, 0, 0.1);
+  background-color: #c4e538;
   font-family: "Short stack", cursive;
   font-weight: bold;
   font-size: 1rem;
   color: #6f1e51;
   &:first-of-type {
     margin-right: 1rem;
+    background-color: #a3cb38;
     color: #16a085;
   }
   &:hover {

@@ -1,6 +1,9 @@
+import {
+  getUsersFromLocalStorage,
+  ScoreType,
+} from "utils/getUsersFromLocalStorage";
 import { getRandomNr } from "utils/getRandomNr";
 import { shuffleArray } from "utils/shuffleArray";
-import { getUsers, ScoreType } from "utils/adduserToStorage";
 
 import { OptionType, QuestionSetType } from "./types";
 
@@ -111,7 +114,7 @@ export const addScoreToUser = (
   level: number,
   answeredQuestions: number
 ) => {
-  const parsedUsers = getUsers();
+  const parsedUsers = getUsersFromLocalStorage();
   const currentUserIndex = parsedUsers.findIndex(
     (el) => el.userName.toLowerCase() === currentUserName.toLowerCase()
   );
@@ -127,6 +130,7 @@ export const addScoreToUser = (
     scoreArray.push(newScore);
     currentUserInfo.scores = scoreArray;
     parsedUsers[currentUserIndex] = currentUserInfo;
+    console.log("After game", JSON.stringify(parsedUsers));
     localStorage.setItem("users", JSON.stringify(parsedUsers));
   }
 };

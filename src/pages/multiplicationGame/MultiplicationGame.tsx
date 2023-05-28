@@ -1,4 +1,5 @@
 import { Container } from "@mui/material";
+import styled, { css } from "styled-components";
 import { ReactElement, useState, useEffect, useMemo, useContext } from "react";
 
 import {
@@ -27,7 +28,7 @@ export const MultiplicationGame = (): ReactElement => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const resetGame = () => {
-    addScoreToUser(currentUser.name, score, level, nrOfAnsweredQs);
+    addScoreToUser(currentUser.userName, score, level, nrOfAnsweredQs);
     setNrOfWrongAnswers(0);
     setNrOfAnsweredQs(0);
     setScore(0);
@@ -88,10 +89,7 @@ export const MultiplicationGame = (): ReactElement => {
   }
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{ backgroundColor: bgColor, pt: 2, height: "92vh" }}
-    >
+    <Wrapper maxWidth={false} bgColor={bgColor}>
       <ScoreBoard
         score={score}
         level={level}
@@ -108,8 +106,17 @@ export const MultiplicationGame = (): ReactElement => {
         level={level}
         score={score}
       />
-    </Container>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled(Container)<{ bgColor: string }>`
+  padding-top: 2rem;
+  height: calc(100vh - 4rem);
+  ${(p) =>
+    css`
+      background-color: ${p.bgColor};
+    `}
+`;
 
 export default MultiplicationGame;

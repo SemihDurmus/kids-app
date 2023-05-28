@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import Profile from "pages/profile/Profile";
@@ -10,7 +11,7 @@ import MultiplicationRouter from "pages/multiplication/MultiplicationRouter";
 import { UserContext } from "context/userContext";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ id: "", name: "" });
+  const [currentUser, setCurrentUser] = useState({ id: "", userName: "" });
   return (
     <Router>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>

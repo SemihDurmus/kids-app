@@ -1,15 +1,15 @@
 import { createContext } from "react";
 
 export const UserContext = createContext<IUserContext>({
-  currentUser: { id: "", name: "" },
+  currentUser: { id: "", userName: "" },
 });
 
 export interface IUserContext {
-  currentUser: { id: string; name: string };
+  currentUser: { id: string; userName: string };
   setCurrentUser?: React.Dispatch<
     React.SetStateAction<{
       id: string;
-      name: string;
+      userName: string;
     }>
   >;
 }

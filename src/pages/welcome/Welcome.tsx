@@ -1,12 +1,10 @@
-import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { ReactElement, useRef, useContext } from "react";
 import { Button, Container, TextField } from "@mui/material";
 
 import { UserContext } from "../../context/userContext";
-import { addUserToStorage } from "utils/adduserToStorage";
+import { addUserToStorage } from "utils/addUserToStorage";
 import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
-import { capitalizeFirstLetters } from "utils/capitalizeFirstLetters";
 
 export const Welcome = (): ReactElement => {
   const textInputRef = useRef<HTMLInputElement>(null);
@@ -16,18 +14,14 @@ export const Welcome = (): ReactElement => {
   const handleClick = () => {
     const name = textInputRef?.current?.value;
     if (name) {
-      const refinedName = capitalizeFirstLetters(name);
-      const shortId = uuidv4().slice(0, 8);
-      const newUser = { id: shortId, name: refinedName };
-      addUserToStorage(newUser);
-      setCurrentUser && setCurrentUser(newUser);
+      addUserToStorage(name, setCurrentUser);
     }
   };
-  if (currentUser.id && currentUser.name) {
+  if (currentUser.id && currentUser.userName) {
     return (
       <Wrapper maxWidth={false}>
         <TitleBox>
-          <h1>Welcome {currentUser.name}</h1>
+          <h1>Welcome {currentUser.userName}</h1>
           <h1 style={{ fontSize: "2em" }}>
             Please choose a game from the menu
           </h1>
@@ -60,7 +54,7 @@ export const Welcome = (): ReactElement => {
 
 const Wrapper = styled(Container)`
   background-color: #b8e994;
-  height: 92vh;
+  height: calc(100vh - 4rem);
 `;
 
 const InputBox = styled.div`

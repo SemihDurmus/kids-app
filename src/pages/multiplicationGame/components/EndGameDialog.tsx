@@ -31,6 +31,7 @@ const EndGameDialog = ({
 
   const handleNo = () => {
     setOpen(false);
+    resetGame();
     navigate("/");
   };
   const handleYes = () => {
@@ -63,7 +64,7 @@ const EndGameDialog = ({
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleNo}>
-          No, go back to main page
+          No, go back to home page
         </Button>
         <Button variant="outlined" onClick={handleYes}>
           Yes !

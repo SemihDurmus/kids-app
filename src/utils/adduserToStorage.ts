@@ -1,34 +1,31 @@
-export const getUsers = (): UserType[] => {
-  const usersData = localStorage.getItem("users");
-  return JSON.parse(usersData || "[]");
-};
+import { v4 as uuidv4 } from "uuid";
+import { capitalizeFirstLetters } from "./capitalizeFirstLetters";
+import { UserType, getUsersFromLocalStorage } from "./getUsersFromLocalStorage";
 
-export const addUserToStorage = ({
-  id,
-  name,
-}: {
-  id: string;
-  name: string;
-}) => {
-  const parsedUsers = getUsers();
-  const submittedNameExists = parsedUsers.some(
+export const addUserToStorage = (
+  name: string,
+  setCurrentUser?: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      userName: string;
+    }>
+  >
+): void => {
+  const parsedUsers = getUsersFromLocalStorage();
+  const userWithSameName = parsedUsers.find(
     (el) => el.userName.toLowerCase() === name.toLowerCase()
   );
-  if (!submittedNameExists) {
-    const newEntry: UserType = { id, userName: name };
-    parsedUsers.push(newEntry);
-    localStorage.setItem("users", JSON.stringify(parsedUsers));
+  if (setCurrentUser) {
+    if (userWithSameName === undefined) {
+      const shortId = uuidv4().slice(0, 8);
+      const refinedName = capitalizeFirstLetters(name);
+      const newUser: UserType = { id: shortId, userName: refinedName };
+      parsedUsers.push(newUser);
+      localStorage.setItem("users", JSON.stringify(parsedUsers));
+      setCurrentUser(newUser);
+    } else {
+      const { id, userName } = userWithSameName;
+      setCurrentUser({ id, userName });
+    }
   }
-};
-export type ScoreType = {
-  score: number;
-  maxLevel: number;
-  answeredQuestions: number;
-  date: Date;
-};
-
-type UserType = {
-  id: string;
-  userName: string;
-  scores?: ScoreType[];
 };
