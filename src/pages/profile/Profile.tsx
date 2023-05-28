@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
-export const Points = (): ReactElement => {
+export const Profile = (): ReactElement => {
   return <div>My Points</div>;
 };
 
-export default Points;
+export default Profile;

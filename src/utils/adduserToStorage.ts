@@ -3,13 +3,19 @@ export const getUsers = (): UserType[] => {
   return JSON.parse(usersData || "[]");
 };
 
-export const addUserToStorage = (submittedName: string) => {
+export const addUserToStorage = ({
+  id,
+  name,
+}: {
+  id: string;
+  name: string;
+}) => {
   const parsedUsers = getUsers();
   const submittedNameExists = parsedUsers.some(
-    (el) => el.userName.toLowerCase() === submittedName.toLowerCase()
+    (el) => el.userName.toLowerCase() === name.toLowerCase()
   );
   if (!submittedNameExists) {
-    const newEntry: UserType = { userName: submittedName };
+    const newEntry: UserType = { id, userName: name };
     parsedUsers.push(newEntry);
     localStorage.setItem("users", JSON.stringify(parsedUsers));
   }
@@ -22,6 +28,7 @@ export type ScoreType = {
 };
 
 type UserType = {
+  id: string;
   userName: string;
   scores?: ScoreType[];
 };

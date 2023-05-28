@@ -14,6 +14,7 @@ import { UserContext } from "../../context/userContext";
 export const NavBar = () => {
   const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const hasNameAndId = currentUser.id && currentUser.name;
   return (
     <Box sx={{ flexGrow: 1, height: "8vh" }}>
       <AppBar position="sticky" color="transparent">
@@ -49,18 +50,23 @@ export const NavBar = () => {
               width: "50rem",
             }}
           >
-            <Box>
-              <button onClick={() => navigate("/multiplication")}>
-                Multiplication
-              </button>
-              {/* <button onClick={() => navigate("/points")}>Points</button> */}
-            </Box>
-            {currentUser && (
+            {hasNameAndId && (
+              <Box>
+                <button onClick={() => navigate("/multiplication")}>
+                  Multiplication
+                </button>
+              </Box>
+            )}
+            {hasNameAndId && (
               <Chip
+                onClick={() => navigate(`${currentUser.id}/profile`)}
+                label={currentUser.name}
                 avatar={
-                  <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
+                  <Avatar
+                    alt={currentUser.name}
+                    src="/static/images/avatar/1.jpg"
+                  />
                 }
-                label={currentUser}
               />
             )}
           </Box>

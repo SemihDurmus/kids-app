@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { ReactElement, useRef, useContext } from "react";
 import { Button, Container, TextField } from "@mui/material";
@@ -16,17 +17,18 @@ export const Welcome = (): ReactElement => {
     const name = textInputRef?.current?.value;
     if (name) {
       const refinedName = capitalizeFirstLetters(name);
-      addUserToStorage(refinedName);
-      setCurrentUser && setCurrentUser(refinedName);
+      const shortId = uuidv4().slice(0, 8);
+      const newUser = { id: shortId, name: refinedName };
+      addUserToStorage(newUser);
+      setCurrentUser && setCurrentUser(newUser);
     }
   };
-
-  if (currentUser) {
+  if (currentUser.id && currentUser.name) {
     return (
       <Wrapper maxWidth={false}>
         <TitleBox>
-          <h1>Welcome {currentUser}</h1>
-          <h1 style={{ fontSize: "2rem" }}>
+          <h1>Welcome {currentUser.name}</h1>
+          <h1 style={{ fontSize: "2em" }}>
             Please choose a game from the menu
           </h1>
         </TitleBox>
