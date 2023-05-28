@@ -1,6 +1,10 @@
-export const addUserToStorage = (submittedName: string) => {
+export const getUsers = (): UserType[] => {
   const usersData = localStorage.getItem("users");
-  const parsedUsers: UserType[] = JSON.parse(usersData || "[]");
+  return JSON.parse(usersData || "[]");
+};
+
+export const addUserToStorage = (submittedName: string) => {
+  const parsedUsers = getUsers();
   const submittedNameExists = parsedUsers.some(
     (el) => el.userName.toLowerCase() === submittedName.toLowerCase()
   );
@@ -10,14 +14,14 @@ export const addUserToStorage = (submittedName: string) => {
     localStorage.setItem("users", JSON.stringify(parsedUsers));
   }
 };
+export type ScoreType = {
+  score: number;
+  maxLevel: number;
+  answeredQuestions: number;
+  date: Date;
+};
 
 type UserType = {
   userName: string;
-  scores?: [
-    {
-      score: number;
-      maxLevel: number;
-      date: Date;
-    }
-  ];
+  scores?: ScoreType[];
 };

@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
 import { UserContext } from "../../context/userContext";
 
 export const NavBar = () => {

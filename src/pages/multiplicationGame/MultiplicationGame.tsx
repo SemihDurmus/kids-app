@@ -1,15 +1,23 @@
 import { Container } from "@mui/material";
-import { ReactElement, useState, useEffect, useMemo } from "react";
+import { ReactElement, useState, useEffect, useMemo, useContext } from "react";
 
+import {
+  createQuestionSet,
+  handleSelectAnswer,
+  selectBgColor,
+  addScoreToUser,
+} from "./utils";
 import GameOff from "./components/GameOff";
 import Answers from "./components/Answers";
 import Question from "./components/Question";
 import { ModeType, OptionType } from "./types";
 import ScoreBoard from "./components/ScoreBoard";
 import EndGameDialog from "./components/EndGameDialog";
-import { createQuestionSet, handleSelectAnswer, selectBgColor } from "./utils";
+import { UserContext } from "../../context/userContext";
 
 export const MultiplicationGame = (): ReactElement => {
+  const { currentUser } = useContext(UserContext);
+
   const [mode, setMode] = useState<ModeType>("gameOff");
   const [score, setScore] = useState(0);
   const [nrOfWrongAnswers, setNrOfWrongAnswers] = useState(0);
@@ -19,6 +27,7 @@ export const MultiplicationGame = (): ReactElement => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const resetGame = () => {
+    addScoreToUser(currentUser, score, level, nrOfAnsweredQs);
     setNrOfWrongAnswers(0);
     setNrOfAnsweredQs(0);
     setScore(0);

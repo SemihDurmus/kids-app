@@ -1,5 +1,7 @@
 import { getRandomNr } from "utils/getRandomNr";
 import { shuffleArray } from "utils/shuffleArray";
+import { getUsers, ScoreType } from "utils/adduserToStorage";
+
 import { OptionType, QuestionSetType } from "./types";
 
 const createWrongOption = (
@@ -100,5 +102,31 @@ export const selectBgColor = (level: number): string => {
       return "#FF2C05";
     default:
       return "#F00505";
+  }
+};
+
+export const addScoreToUser = (
+  currentUserName: string,
+  score: number,
+  level: number,
+  answeredQuestions: number
+) => {
+  const parsedUsers = getUsers();
+  const currentUserIndex = parsedUsers.findIndex(
+    (el) => el.userName.toLowerCase() === currentUserName.toLowerCase()
+  );
+  if (currentUserIndex !== -1) {
+    const currentUserInfo = parsedUsers[currentUserIndex];
+    const scoreArray = currentUserInfo?.scores || [];
+    const newScore: ScoreType = {
+      score: score,
+      maxLevel: level,
+      answeredQuestions: answeredQuestions,
+      date: new Date(),
+    };
+    scoreArray.push(newScore);
+    currentUserInfo.scores = scoreArray;
+    parsedUsers[currentUserIndex] = currentUserInfo;
+    localStorage.setItem("users", JSON.stringify(parsedUsers));
   }
 };
