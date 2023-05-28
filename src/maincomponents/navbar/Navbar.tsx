@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
@@ -8,10 +10,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
-export const NavBar = () => {
-  const userName = "Semih";
-  const navigate = useNavigate();
+import { UserContext } from "../../context/userContext";
 
+export const NavBar = () => {
+  const { currentUser } = useContext(UserContext);
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1, height: "8vh" }}>
       <AppBar position="sticky" color="transparent">
@@ -53,12 +56,14 @@ export const NavBar = () => {
               </button>
               {/* <button onClick={() => navigate("/points")}>Points</button> */}
             </Box>
-            <Chip
-              avatar={
-                <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-              }
-              label={userName}
-            />
+            {currentUser && (
+              <Chip
+                avatar={
+                  <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
+                }
+                label={currentUser}
+              />
+            )}
           </Box>
         </Toolbar>
       </AppBar>

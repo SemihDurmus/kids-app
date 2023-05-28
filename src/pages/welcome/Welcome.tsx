@@ -1,13 +1,38 @@
 import styled from "styled-components";
-import { ReactElement, useRef } from "react";
+import { ReactElement, useRef, useContext } from "react";
 import { Button, Container, TextField } from "@mui/material";
 
+import { UserContext } from "../../context/userContext";
+import { addUserToStorage } from "utils/adduserToStorage";
 import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
+import { capitalizeFirstLetters } from "utils/capitalizeFirstLetters";
+
 export const Welcome = (): ReactElement => {
   const textInputRef = useRef<HTMLInputElement>(null);
+
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
   const handleClick = () => {
-    console.log("MUI ", textInputRef?.current?.value);
+    const name = textInputRef?.current?.value;
+    if (name) {
+      const refinedName = capitalizeFirstLetters(name);
+      addUserToStorage(refinedName);
+      setCurrentUser && setCurrentUser(refinedName);
+    }
   };
+
+  if (currentUser) {
+    return (
+      <Wrapper maxWidth={false}>
+        <TitleBox>
+          <h1>Welcome {currentUser}</h1>
+          <h1 style={{ fontSize: "2rem" }}>
+            Please choose a game from the menu
+          </h1>
+        </TitleBox>
+      </Wrapper>
+    );
+  }
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
@@ -49,8 +74,6 @@ const InputBox = styled.div`
 const StyledButton = styled(Button)`
   &.MuiButton-root {
     width: 20rem;
-    //   color: #fff;
-    //   background-color: #7f8c8d;
     color: #fff;
     background-color: #000;
     font-size: 1.2rem;
@@ -58,7 +81,6 @@ const StyledButton = styled(Button)`
     font-family: "Short stack", cursive;
     border: 1px solid transparent;
     &:hover {
-      //   background-color: #d35400;
       border-color: #000;
       background-color: #2d3436;
       cursor: pointer;
