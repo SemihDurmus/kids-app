@@ -1,18 +1,22 @@
 import { ReactElement } from "react";
 import styled from "styled-components";
 import Stack from "@mui/material/Stack";
+import { Box, LinearProgress } from "@mui/material";
 
 export const ScoreBoard = (props: {
   score: number;
   level: number;
   nrOfWrongAnswers: number;
   remainingSeconds: number;
+  progressBarValue: number;
 }): ReactElement => {
-  const { score, level, nrOfWrongAnswers, remainingSeconds } = props;
+  const { score, level, nrOfWrongAnswers, remainingSeconds, progressBarValue } =
+    props;
   return (
     <div>
       <Row>
-        {remainingSeconds && <Timer>{remainingSeconds}</Timer>}{" "}
+        {remainingSeconds && <Timer>{remainingSeconds}</Timer>}
+
         <RightSide>
           <StyledStack direction="row" spacing={1}>
             <AssetBox>Score</AssetBox>
@@ -25,6 +29,23 @@ export const ScoreBoard = (props: {
         </RightSide>
       </Row>
       <SkullsBox>{Array(nrOfWrongAnswers).fill("💀").join("")}</SkullsBox>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <LinearProgress
+          variant="determinate"
+          value={progressBarValue}
+          sx={{
+            height: 16,
+            width: "50%",
+            textAlign: "center",
+            backgroundColor: "black",
+            transform: "rotateY(-180deg)",
+            borderRadius: "2rem",
+            "& .MuiLinearProgress-bar": {
+              backgroundColor: "#00cec9",
+            },
+          }}
+        />
+      </Box>
     </div>
   );
 };

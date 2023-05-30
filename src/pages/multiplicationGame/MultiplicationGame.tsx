@@ -1,5 +1,5 @@
+import styled from "styled-components";
 import { Container } from "@mui/material";
-import styled, { css } from "styled-components";
 import { ReactElement, useState, useEffect, useMemo, useContext } from "react";
 
 import {
@@ -88,13 +88,16 @@ export const MultiplicationGame = (): ReactElement => {
     return <GameOff setLevel={setLevel} level={level} setMode={setMode} />;
   }
 
+  const progressBarValue = (remainingSeconds * 100) / (16 - level);
+
   return (
-    <Wrapper maxWidth={false} bgColor={bgColor}>
+    <Wrapper maxWidth={false} sx={{ backgroundColor: bgColor }}>
       <ScoreBoard
         score={score}
         level={level}
         nrOfWrongAnswers={nrOfWrongAnswers}
         remainingSeconds={remainingSeconds}
+        progressBarValue={progressBarValue}
       />
       <Question nr1={nr1} nr2={nr2} />
       <Answers options={options} handleClick={handleClick} />
@@ -110,13 +113,9 @@ export const MultiplicationGame = (): ReactElement => {
   );
 };
 
-const Wrapper = styled(Container)<{ bgColor: string }>`
+const Wrapper = styled(Container)`
   padding-top: 2rem;
   height: calc(100vh - 4rem);
-  ${(p) =>
-    css`
-      background-color: ${p.bgColor};
-    `}
 `;
 
 export default MultiplicationGame;
