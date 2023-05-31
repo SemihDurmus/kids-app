@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import { getUserInfoById } from "utils/getUserInfoById";
-import EnhancedTable from "../../maincomponents/scoreTable/ScoreTable";
+import ScoreTable from "../../maincomponents/scoreTable/ScoreTable";
 import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
 
 export const Profile = (): ReactElement => {
@@ -28,7 +28,7 @@ export const Profile = (): ReactElement => {
       <TitleBox>
         <h1>{userInfo.userName}</h1>
       </TitleBox>
-      <EnhancedTable />
+      <ScoreTable />
     </Wrapper>
   );
 };
