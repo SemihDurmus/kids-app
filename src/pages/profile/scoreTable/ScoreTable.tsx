@@ -20,8 +20,8 @@ import {
 } from "./utils";
 
 const ScoreTable = ({ scores }: { scores: ScoreType[] }) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof ScoreType>("date");
+  const [order, setOrder] = React.useState<Order>("desc");
+  const [orderBy, setOrderBy] = React.useState<keyof ScoreType>("score");
   const [page, setPage] = React.useState(0);
   const rows = scores;
   const handleRequestSort = (
@@ -33,27 +33,30 @@ const ScoreTable = ({ scores }: { scores: ScoreType[] }) => {
     setOrderBy(property);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * 5 - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - rows.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
-        page * 5,
-        page * 5 + 5
+        page * 10,
+        page * 10 + 10
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [order, orderBy, page]
   );
 
+  const scoresArray = scores.map((el) => el.score);
+  const bestScore = Math.max(...scoresArray);
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar />
+    <Box sx={{ width: "60%", margin: "0 auto", border: "2px solid black" }}>
+      <Paper sx={{ width: "100%" }}>
+        <EnhancedTableToolbar bestScore={bestScore} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -112,7 +115,7 @@ const ScoreTable = ({ scores }: { scores: ScoreType[] }) => {
           rowsPerPageOptions={[]}
           component="div"
           count={rows.length}
-          rowsPerPage={5}
+          rowsPerPage={10}
           page={page}
           onPageChange={handleChangePage}
         />

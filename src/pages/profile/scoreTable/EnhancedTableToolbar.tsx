@@ -1,6 +1,6 @@
 import { Toolbar, Typography } from "@mui/material";
 
-export const EnhancedTableToolbar = () => {
+export const EnhancedTableToolbar = ({ bestScore }: { bestScore: number }) => {
   return (
     <Toolbar
       sx={{
@@ -16,11 +16,11 @@ export const EnhancedTableToolbar = () => {
           fontWeight: "bold",
           color: "#B53471",
         }}
-        variant="h4"
+        variant="h6"
         id="tableTitle"
         component="div"
       >
-        Your scores
+        Your highest score is {bestScore}
       </Typography>
     </Toolbar>
   );

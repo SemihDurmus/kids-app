@@ -34,7 +34,7 @@ const headCells: readonly HeadCell[] = [
     id: "answeredQuestions",
     numeric: true,
     disablePadding: false,
-    label: "Number of answered questions",
+    label: "Questions answered",
   },
 ];
 
