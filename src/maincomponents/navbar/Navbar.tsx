@@ -1,106 +1,95 @@
 import { useContext } from "react";
-import { styled } from "@mui/system";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/userContext";
 
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Avatar, Chip } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+
+import AccountMenu from "./AccountMenu";
+import { UserContext } from "../../context/userContext";
 
 export const NavBar = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const hasNameAndId = currentUser.id && currentUser.userName;
+
+  const handleLogout = () => {
+    setCurrentUser && setCurrentUser({ id: "", userName: "" });
+    navigate("/");
+  };
+
   return (
     <Box sx={{ flexGrow: 1, height: "4rem", backgroundColor: "#6F1E51" }}>
       <AppBar position="sticky" color="transparent">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon
-              sx={{
-                color: "#ffc312",
-                "&:hover": {
-                  color: "#FFC312",
-                  opacity: [0.9, 0.8, 0.7],
-                },
-              }}
-            />
-          </IconButton>
-          <Title
-            variant="h6"
-            onClick={() => navigate("/")}
-            sx={{ flexGrow: 1, cursor: "pointer" }}
-          >
-            Kids App{" "}
-          </Title>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              width: "50rem",
             }}
           >
-            {hasNameAndId && (
-              <Box>
-                <button onClick={() => navigate("/multiplication")}>
-                  Multiplication
-                </button>
-              </Box>
-            )}
-            {hasNameAndId && (
-              <div>
-                <Chip
-                  onClick={() => navigate(`${currentUser.id}/profile`)}
-                  sx={{
-                    fontWeight: "bold",
-                    backgroundColor: "#ffc312",
-                    fontFamily: "Short stack",
-                    "&:hover": {
-                      color: "#FFC",
-                      backgroundColor: "#F79F1F",
-                      opacity: [0.9, 0.8, 0.7],
-                    },
-                  }}
-                  label={currentUser.userName}
-                  avatar={
-                    <Avatar
-                      alt={currentUser.userName}
-                      src="/static/images/avatar/1.jpg"
-                    />
-                  }
-                />
-                <Chip
-                  onClick={() => {
-                    setCurrentUser && setCurrentUser({ id: "", userName: "" });
-                    navigate("/");
-                  }}
-                  sx={{
-                    fontWeight: "bold",
-                    ml: 2,
-                    fontFamily: "Short stack",
-                    backgroundColor: "#ED4C67",
-                    "&:hover": {
-                      color: "#FFC",
-                      backgroundColor: "#F79F1F",
-                      opacity: [0.9, 0.8, 0.7],
-                    },
-                  }}
-                  label="Log out"
-                />
-              </div>
-            )}
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{
+                mr: 2,
+                lineHeight: "0.5rem",
+                display: {
+                  xs: "block",
+                  sm: "none",
+                },
+              }}
+            >
+              <MenuIcon sx={{ color: "#ffc312" }} />
+            </IconButton>
+            <Typography
+              variant="h6"
+              onClick={() => navigate("/")}
+              sx={{
+                flexGrow: 1,
+                fontFamily: "Oswald",
+                color: "#ffc312",
+                "&:hover": {
+                  cursor: "pointer",
+                  textShadow: "0 0 7px #fff, 0 0 9px #fff",
+                },
+              }}
+            >
+              Kids App
+            </Typography>
           </Box>
+
+          {hasNameAndId && (
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <StyledButton onClick={() => navigate("/multiplication")}>
+                Multiplication
+              </StyledButton>
+            </Box>
+          )}
+          {hasNameAndId && (
+            <AccountMenu
+              userName={currentUser.userName}
+              handleLogout={handleLogout}
+              handleProfile={() => navigate(`${currentUser.id}/profile`)}
+            />
+          )}
         </Toolbar>
       </AppBar>
     </Box>
@@ -109,7 +98,15 @@ export const NavBar = () => {
 
 export default NavBar;
 
-const Title = styled(Typography)`
+const StyledButton = styled.button`
   font-family: "Oswald";
-  color: #ffc312;
+  border: none;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: transparent;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    text-shadow: 0 0 7px #fff, 0 0 9px #fff;
+  }
 `;
