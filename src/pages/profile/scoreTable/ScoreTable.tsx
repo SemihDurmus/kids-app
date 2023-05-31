@@ -12,6 +12,7 @@ import { Data, Order } from "./types";
 import ScoreTableHead from "./ScoreTableHead";
 import { getComparator, stableSort } from "./utils";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
+import { UserType } from "utils/getUsersFromLocalStorage";
 
 function createData(
   name: string,
@@ -45,7 +46,7 @@ const rows = [
   createData("Oreo", 437, 18.0, 63, 4.0),
 ];
 
-export default function ScoreTable() {
+const ScoreTable = (userInfo: UserType) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("calories");
   const [page, setPage] = React.useState(0);
@@ -135,4 +136,6 @@ export default function ScoreTable() {
       </Paper>
     </Box>
   );
-}
+};
+
+export default ScoreTable;
