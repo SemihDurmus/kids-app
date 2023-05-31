@@ -14,8 +14,8 @@ export function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key
 ): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
+  a: { [key in Key]: number | string | Date },
+  b: { [key in Key]: number | string | Date }
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -36,3 +36,19 @@ export function stableSort<T>(
   });
   return stabilizedThis.map((el) => el[0]);
 }
+
+export const convertToReadibleDate = (date: Date): string => {
+  const dateData = new Date(date);
+  const timeFormat: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return dateData.toLocaleDateString(undefined, timeFormat);
+};
+
+export const cellStyle = {
+  color: "#353b48",
+  fontWeight: "bold",
+  fontFamily: "Short stack",
+};

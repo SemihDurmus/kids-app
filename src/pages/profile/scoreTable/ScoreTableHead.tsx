@@ -6,38 +6,35 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import { HeadCell, Data, EnhancedTableProps } from "./types";
+
+import { cellStyle } from "./utils";
+import { HeadCell, EnhancedTableProps } from "./types";
+import { ScoreType } from "utils/getUsersFromLocalStorage";
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Dessert (100g serving)",
+    label: "Date of game",
   },
   {
-    id: "calories",
+    id: "score",
     numeric: true,
     disablePadding: false,
-    label: "Calories",
+    label: "Score",
   },
   {
-    id: "fat",
+    id: "maxLevel",
     numeric: true,
     disablePadding: false,
-    label: "Fat (g)",
+    label: "Level",
   },
   {
-    id: "carbs",
+    id: "answeredQuestions",
     numeric: true,
     disablePadding: false,
-    label: "Carbs (g)",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
+    label: "Number of answered questions",
   },
 ];
 
@@ -47,7 +44,7 @@ const ScoreTableHead = ({
   onRequestSort,
 }: EnhancedTableProps) => {
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof ScoreType) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -60,6 +57,7 @@ const ScoreTableHead = ({
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={cellStyle}
           >
             <TableSortLabel
               active={orderBy === headCell.id}

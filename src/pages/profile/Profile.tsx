@@ -11,7 +11,6 @@ export const Profile = (): ReactElement => {
   const { id = "" } = useParams<{ id: string }>();
 
   const userInfo = getUserInfoById(id);
-  console.log(id, userInfo);
 
   if (userInfo === undefined) {
     return (
@@ -23,12 +22,19 @@ export const Profile = (): ReactElement => {
     );
   }
 
+  const { scores } = userInfo;
+  const hasScores = scores !== undefined && !!scores.length;
+
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
         <h1>{userInfo.userName}</h1>
       </TitleBox>
-      <ScoreTable userInfo={userInfo} />
+      {hasScores ? (
+        <ScoreTable scores={scores} />
+      ) : (
+        <h6>You have no scores yet</h6>
+      )}
     </Wrapper>
   );
 };

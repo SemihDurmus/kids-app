@@ -130,7 +130,6 @@ export const addScoreToUser = (
     scoreArray.push(newScore);
     currentUserInfo.scores = scoreArray;
     parsedUsers[currentUserIndex] = currentUserInfo;
-    console.log("After game", JSON.stringify(parsedUsers));
     localStorage.setItem("users", JSON.stringify(parsedUsers));
   }
 };

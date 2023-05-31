@@ -6,13 +6,13 @@ export const EnhancedTableToolbar = () => {
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
-        textAlign: "center",
+        textAlign: "left",
       }}
     >
       <Typography
         sx={{
           flex: "1 1 100%",
-          fontFamily: "Short stack",
+          fontFamily: "Oswald",
           fontWeight: "bold",
           color: "#B53471",
         }}
