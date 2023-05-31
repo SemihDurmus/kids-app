@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
+import DrawerMenu from "./DrawerMenu";
 import AccountMenu from "./AccountMenu";
 import { UserContext } from "../../context/userContext";
 
@@ -37,21 +36,7 @@ export const NavBar = () => {
               alignItems: "center",
             }}
           >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{
-                mr: 2,
-                lineHeight: "0.5rem",
-                display: {
-                  xs: "block",
-                  sm: "none",
-                },
-              }}
-            >
-              <MenuIcon sx={{ color: "#ffc312" }} />
-            </IconButton>
+            <DrawerMenu />
             <Typography
               variant="h6"
               onClick={() => navigate("/")}
@@ -98,7 +83,7 @@ export const NavBar = () => {
 
 export default NavBar;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   font-family: "Oswald";
   border: none;
   font-size: 1.2rem;
