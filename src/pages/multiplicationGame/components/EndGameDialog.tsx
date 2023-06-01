@@ -63,10 +63,10 @@ const EndGameDialog = ({
         <Row>Do you want to play a new game? </Row>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={handleNo}>
+        <Button variant="outlined" onClick={handleNo} size="small">
           No, go back to home page
         </Button>
-        <Button variant="outlined" onClick={handleYes}>
+        <Button variant="outlined" onClick={handleYes} size="small">
           Yes !
         </Button>
       </DialogActions>
