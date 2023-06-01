@@ -3,8 +3,11 @@ import { ReactElement, useRef, useContext } from "react";
 import { Button, Container, TextField } from "@mui/material";
 
 import { UserContext } from "../../context/userContext";
+import {
+  Styledh1,
+  TitleBox,
+} from "maincomponents/styledComponents/StyledComponents";
 import { addUserToStorage } from "utils/addUserToStorage";
-import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
 
 export const Welcome = (): ReactElement => {
   const textInputRef = useRef<HTMLInputElement>(null);
@@ -21,10 +24,10 @@ export const Welcome = (): ReactElement => {
     return (
       <Wrapper maxWidth={false}>
         <TitleBox>
-          <h1>Welcome {currentUser.userName}</h1>
-          <h1 style={{ fontSize: "2em" }}>
+          <Styledh1>Welcome {currentUser.userName}</Styledh1>
+          <Styledh1 style={{ marginTop: "2rem" }}>
             Please choose a game from the menu
-          </h1>
+          </Styledh1>
         </TitleBox>
       </Wrapper>
     );
@@ -32,7 +35,7 @@ export const Welcome = (): ReactElement => {
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
-        <h1>Welcome to Kids App</h1>
+        <Styledh1>Welcome to Kids App</Styledh1>
       </TitleBox>
       <h4 style={{ textAlign: "center" }}>Please enter your name in the box</h4>
       <InputBox>

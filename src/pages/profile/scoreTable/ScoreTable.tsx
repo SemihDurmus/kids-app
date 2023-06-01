@@ -8,16 +8,16 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
+import {
+  cellStyle,
+  stableSort,
+  getComparator,
+  convertToReadibleDate,
+} from "./utils";
 import { Order } from "./types";
 import ScoreTableHead from "./ScoreTableHead";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import { ScoreType } from "utils/getUsersFromLocalStorage";
-import {
-  getComparator,
-  stableSort,
-  convertToReadibleDate,
-  cellStyle,
-} from "./utils";
 
 const ScoreTable = ({ scores }: { scores: ScoreType[] }) => {
   const [order, setOrder] = React.useState<Order>("desc");
@@ -54,12 +54,26 @@ const ScoreTable = ({ scores }: { scores: ScoreType[] }) => {
   const bestScore = Math.max(...scoresArray);
 
   return (
-    <Box sx={{ width: "60%", margin: "0 auto", border: "2px solid black" }}>
+    <Box
+      sx={{
+        width: "60%",
+        margin: "0 auto",
+        border: "2px solid black",
+        "@media screen and (max-width: 768px)": {
+          width: "100%",
+        },
+      }}
+    >
       <Paper sx={{ width: "100%" }}>
         <EnhancedTableToolbar bestScore={bestScore} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{
+              minWidth: 750,
+              "@media screen and (max-width: 768px)": {
+                minWidth: 50,
+              },
+            }}
             aria-labelledby="tableTitle"
             size="small"
           >

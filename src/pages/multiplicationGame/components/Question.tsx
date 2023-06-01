@@ -10,7 +10,7 @@ interface IQuestion {
 }
 
 const Wrapper = styled.div`
-  width: 30vw;
+  width: 12rem;
   height: 6rem;
   line-height: 6rem;
   text-align: center;
@@ -19,7 +19,14 @@ const Wrapper = styled.div`
   margin: 2rem auto;
   padding: 1rem;
   border-radius: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  color: cyan;
+  background-color: black;
+  @media (max-width: 768px) {
+    width: 8rem;
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 3rem;
+    margin: 1rem auto;
+  }
 `;
 export default Question;

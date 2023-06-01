@@ -16,7 +16,7 @@ const headCells: readonly HeadCell[] = [
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date of game",
+    label: "Date",
   },
   {
     id: "score",

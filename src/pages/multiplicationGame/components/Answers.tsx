@@ -18,14 +18,18 @@ interface IAnswers {
 }
 
 const Wrapper = styled.div`
-  width: 30vw;
+  box-sizing: border-box;
   height: 6rem;
+  width: 100%;
+  padding-inline: 8rem;
   line-height: 6rem;
   text-align: center;
   margin: 2rem auto;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    padding-inline: 0;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -43,6 +47,12 @@ const StyledButton = styled.button`
     background-color: #2d3436;
     cursor: pointer;
     text-shadow: 0 0 7px #fff, 0 0 9px #fff;
+  }
+  @media (max-width: 768px) {
+    width: 4rem;
+    height: 4rem;
+    line-height: 2rem;
+    font-size: 2rem;
   }
 `;
 

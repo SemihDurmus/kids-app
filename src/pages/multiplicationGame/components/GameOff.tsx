@@ -10,13 +10,18 @@ import {
 import styled from "styled-components";
 
 import { ModeType } from "../types";
-import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
+import {
+  Styledh1,
+  TitleBox,
+} from "maincomponents/styledComponents/StyledComponents";
 
 export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
   const levelsArray = Array.from({ length: 10 }, (_, index) => index + 1);
   const handleChange = (e: SelectChangeEvent<number>) => {
     setLevel(Number(e.target.value));
   };
+  const handleStartGame = () => setMode("gameOn");
+
   const selectStyle = {
     fontFamily: "Short stack",
     color: "#EE5A24",
@@ -25,36 +30,34 @@ export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
-        <h1>Multiplication Table Game</h1>
+        <Styledh1>Multiplication Table Game</Styledh1>
       </TitleBox>
       <ControlsBox>
-        <>
-          <FormControl sx={{ width: "20rem" }}>
-            <InputLabel id="demo-simple-select-label">Level</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={level}
-              label="Level"
-              onChange={handleChange}
-              size="small"
-              sx={{ ...selectStyle, color: "#6F1E51" }}
-            >
-              {levelsArray.map((el) => (
-                <MenuItem
-                  key={el}
-                  sx={selectStyle}
-                  value={el}
-                >{`Level: ${el}`}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </>
+        <FormControl sx={{ width: "20rem" }}>
+          <InputLabel id="demo-simple-select-label">Level</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={level}
+            label="Level"
+            onChange={handleChange}
+            size="small"
+            sx={{ ...selectStyle, color: "#6F1E51" }}
+          >
+            {levelsArray.map((el) => (
+              <MenuItem
+                key={el}
+                sx={selectStyle}
+                value={el}
+              >{`Level: ${el}`}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Button
           variant="contained"
           color="success"
           sx={{ width: "20rem", mt: "3rem" }}
-          onClick={() => setMode("gameOn")}
+          onClick={handleStartGame}
         >
           Start Game
         </Button>
@@ -72,7 +75,7 @@ const Wrapper = styled(Container)`
 `;
 
 const ControlsBox = styled.div`
-  height: 80vh;
+  padding-top: 6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

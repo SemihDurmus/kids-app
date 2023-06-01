@@ -22,7 +22,13 @@ export const NavBar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, height: "4rem", backgroundColor: "#6F1E51" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        height: "4rem",
+        backgroundColor: "#6F1E51",
+      }}
+    >
       <AppBar position="sticky" color="transparent">
         <Toolbar
           sx={{

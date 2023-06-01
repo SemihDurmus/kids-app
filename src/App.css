@@ -3,3 +3,14 @@ body {
   padding: 0;
   background-color: #f1c40f;
 }
+@media (max-width: 768px) {
+  h1 {
+    /* Styles for <h1> on mobile screens */
+    font-size: 14px;
+  }
+
+  h6 {
+    /* Styles for <h6> on mobile screens */
+    font-size: 14px;
+  }
+}

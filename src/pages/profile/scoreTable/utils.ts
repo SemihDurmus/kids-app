@@ -51,4 +51,8 @@ export const cellStyle = {
   color: "#353b48",
   fontWeight: "bold",
   fontFamily: "Short stack",
+  "@media screen and (max-width: 768px)": {
+    fontSize: "0.6rem",
+    flexDirection: "column-reverse",
+  },
 };

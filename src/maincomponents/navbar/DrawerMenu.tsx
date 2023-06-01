@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import Drawer from "@mui/material/Drawer";
-import { IconButton } from "@mui/material";
+import { IconButton, ListItemIcon } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListItemText from "@mui/material/ListItemText";
@@ -21,16 +21,34 @@ export default function DrawerMenu() {
 
   const listMenuItems = () => (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 200, backgroundColor: "#2c3e50" }}
       role="presentation"
       onClick={() => setOpen(false)}
       onKeyDown={() => setOpen(false)}
     >
+      <ListItem disablePadding>
+        <ListItemButton>
+          <ListItemText
+            disableTypography={true}
+            sx={{
+              fontFamily: "Short stack",
+              color: "#efefef",
+              pb: 2,
+              borderBottom: "1px solid white",
+            }}
+            primary={"Menu"}
+          />
+        </ListItemButton>
+      </ListItem>
       <List>
         {menuItems.map((el, index) => (
-          <ListItem key={el.text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton onClick={el.onClick}>
-              <ListItemText primary={el.text} />
+              <ListItemText
+                disableTypography={true}
+                sx={{ fontFamily: "Short stack", color: "#2ecc71" }}
+                primary={el.text}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -56,7 +74,16 @@ export default function DrawerMenu() {
       >
         <MenuIcon sx={{ color: "#ffc312" }} />
       </IconButton>
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={() => setOpen(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: "rgba(149, 165, 165, 0.8)",
+          },
+        }}
+      >
         {listMenuItems()}
       </Drawer>
     </div>

@@ -5,7 +5,10 @@ import { useParams } from "react-router-dom";
 
 import ScoreTable from "./scoreTable/ScoreTable";
 import { getUserInfoById } from "utils/getUserInfoById";
-import { TitleBox } from "maincomponents/styledComponents/StyledComponents";
+import {
+  Styledh1,
+  TitleBox,
+} from "maincomponents/styledComponents/StyledComponents";
 
 export const Profile = (): ReactElement => {
   const { id = "" } = useParams<{ id: string }>();
@@ -16,7 +19,7 @@ export const Profile = (): ReactElement => {
     return (
       <Wrapper maxWidth={false}>
         <TitleBox>
-          <h1>No user information found</h1>
+          <Styledh1>No user information found</Styledh1>
         </TitleBox>
       </Wrapper>
     );
@@ -28,7 +31,7 @@ export const Profile = (): ReactElement => {
   return (
     <Wrapper maxWidth={false}>
       <TitleBox>
-        <h1>{userInfo.userName}</h1>
+        <Styledh1>{userInfo.userName}</Styledh1>
       </TitleBox>
       {hasScores ? (
         <ScoreTable scores={scores} />
