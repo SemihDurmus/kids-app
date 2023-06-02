@@ -72,6 +72,7 @@ interface IGameOff {
 }
 const Wrapper = styled(Container)`
   background-color: #ffc312;
+  height: calc(100vh - 4rem);
 `;
 
 const ControlsBox = styled.div`
