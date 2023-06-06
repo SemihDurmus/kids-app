@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kids-app/static/css/main.e5a7ef42.css",
+    "main.js": "/kids-app/static/js/main.0e030c70.js",
+    "static/js/787.5e5fb11e.chunk.js": "/kids-app/static/js/787.5e5fb11e.chunk.js",
+    "index.html": "/kids-app/index.html",
+    "main.e5a7ef42.css.map": "/kids-app/static/css/main.e5a7ef42.css.map",
+    "main.0e030c70.js.map": "/kids-app/static/js/main.0e030c70.js.map",
+    "787.5e5fb11e.chunk.js.map": "/kids-app/static/js/787.5e5fb11e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e5a7ef42.css",
+    "static/js/main.0e030c70.js"
+  ]
+}
