@@ -15,6 +15,7 @@ const ExerciseQuestions = ({
   selection,
 }: IExerciseQuestions): ReactElement => {
   const [val, setVal] = useState("");
+  const [blockSubmit, setBlockSubmit] = useState(false);
   const [bgColor, setBgColor] = useState("transparent");
   const [qIndex, setQIndex] = useState(0);
 
@@ -40,17 +41,20 @@ const ExerciseQuestions = ({
 
     setTimeout(() => {
       setBgColor("transparent");
+      setBlockSubmit(true);
       if (qIndex === questions.length - 1) {
         alert("exercise over");
       } else {
         setQIndex((prev) => prev + 1);
         setVal("");
+        setBlockSubmit(false);
       }
     }, 900);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && !blockSubmit) {
+      setBlockSubmit(true);
       handleSubmit(val);
     }
   };
@@ -79,7 +83,7 @@ const ExerciseQuestions = ({
             },
           }}
           onClick={() => handleSubmit(val)}
-          disabled={val === ""}
+          disabled={val === "" || blockSubmit}
         >
           OK
         </SubmitButton>
