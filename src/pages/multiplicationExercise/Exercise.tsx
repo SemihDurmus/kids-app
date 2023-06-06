@@ -8,6 +8,7 @@ import {
   Wrapper,
 } from "maincomponents/styledComponents/StyledComponents";
 import ExerciseQuestions from "./components/ExerciseQuestions";
+import EndExerciseDialog from "./components/EndExerciseDialog";
 import SelectNumberOfQuestions from "./components/SelectNumberOfQuestions";
 
 export const Exercise = (): ReactElement => {
@@ -16,8 +17,16 @@ export const Exercise = (): ReactElement => {
 
   const [showNrOfQuestions, setShowNrOfQuestions] = useState(true);
   const [nrOfQuestions, setNrOfQuestions] = useState(1);
+  const [nrOfWrongAnswers, setNrOfWrongAnswers] = useState(0);
 
   const [openDialog, setOpenDialog] = useState(false);
+
+  const resetExercise = () => {
+    setExerciseOn(false);
+    setNrOfQuestions(1);
+    setShowNrOfQuestions(true);
+    setNrOfWrongAnswers(0);
+  };
 
   if (!exerciseOn) {
     return (
@@ -48,8 +57,17 @@ export const Exercise = (): ReactElement => {
         <ExerciseQuestions
           nrOfQuestions={nrOfQuestions}
           selection={selection}
+          setOpenDialog={setOpenDialog}
+          setNrOfWrongAnswers={setNrOfWrongAnswers}
         />
       )}
+      <EndExerciseDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        resetExercise={resetExercise}
+        nrOfWrongAnswers={nrOfWrongAnswers}
+        nrOfQuestions={nrOfQuestions}
+      />
     </Wrapper>
   );
 };

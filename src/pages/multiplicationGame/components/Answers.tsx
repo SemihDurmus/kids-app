@@ -30,6 +30,9 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     padding-inline: 0;
   }
+  @media (min-width: 1200px) {
+    width: 60%;
+  }
 `;
 
 const OptionButton = styled.button`

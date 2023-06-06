@@ -9,8 +9,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { TransitionProps } from "@mui/material/transitions";
 
+import { IEndGameDialog } from "../types";
 import { DialogRow } from "maincomponents/styledComponents/StyledComponents";
-
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: ReactElement<any, any>;
@@ -20,25 +20,27 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const EndGameDialog = ({
+const EndExerciseDialog = ({
   open,
   setOpen,
-  resetGame,
-  nrOfAnsweredQs,
-  level,
-  score,
+  resetExercise,
+  nrOfWrongAnswers,
+  nrOfQuestions,
 }: IEndGameDialog) => {
   const navigate = useNavigate();
 
   const handleNo = () => {
     setOpen(false);
-    resetGame();
+    resetExercise();
     navigate("/");
   };
   const handleYes = () => {
     setOpen(false);
-    resetGame();
+    resetExercise();
   };
+  const correctAnswers = nrOfQuestions - nrOfWrongAnswers;
+  const score = (correctAnswers / nrOfQuestions) * 100;
+  const roundedScore = Math.round(score);
 
   return (
     <Dialog
@@ -48,22 +50,19 @@ const EndGameDialog = ({
       onClose={() => setOpen(false)}
     >
       <DialogTitle sx={{ fontFamily: "Short stack", textAlign: "center" }}>
-        GAME IS OVER
+        EXERCISE IS COMPLETED
       </DialogTitle>
       <DialogContent>
         <DialogRow>
-          {score > 10 ? "Good job!" : "Could be better next time"}
+          {`You have answered ${correctAnswers} out of ${nrOfQuestions} questions correctly,`}
         </DialogRow>
         <DialogRow>
-          You answered <span>{nrOfAnsweredQs}</span> questions
+          and your score is <span>{roundedScore} / 100</span>
         </DialogRow>
         <DialogRow>
-          You have been up to level <span>{level}</span>
+          {roundedScore > 66 ? "Good job!" : "Could be better next time"}
         </DialogRow>
-        <DialogRow>
-          Your score is <span>{score}</span>
-        </DialogRow>
-        <DialogRow>Do you want to play a new game? </DialogRow>
+        <DialogRow>Do you want to continue exercising? </DialogRow>
       </DialogContent>
       <DialogActions sx={{ margin: "0 auto" }}>
         <Button variant="outlined" onClick={handleNo} size="small">
@@ -77,13 +76,4 @@ const EndGameDialog = ({
   );
 };
 
-interface IEndGameDialog {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  resetGame: () => void;
-  nrOfAnsweredQs: number;
-  level: number;
-  score: number;
-}
-
-export default EndGameDialog;
+export default EndExerciseDialog;

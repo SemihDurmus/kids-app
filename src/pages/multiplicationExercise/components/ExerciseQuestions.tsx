@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Box, TextField } from "@mui/material";
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement, useMemo, useState, useRef } from "react";
 
 import { IExerciseQuestions } from "../types";
 import {
@@ -13,15 +13,18 @@ import { createQuestions, createStatusContent } from "../utils";
 const ExerciseQuestions = ({
   nrOfQuestions,
   selection,
+  setOpenDialog,
+  setNrOfWrongAnswers,
 }: IExerciseQuestions): ReactElement => {
   const [val, setVal] = useState("");
   const [blockSubmit, setBlockSubmit] = useState(false);
   const [bgColor, setBgColor] = useState("transparent");
   const [qIndex, setQIndex] = useState(0);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const questions = useMemo(
     () => createQuestions(nrOfQuestions, selection),
-
     [nrOfQuestions, selection]
   );
 
@@ -34,6 +37,7 @@ const ExerciseQuestions = ({
 
   const handleSubmit = (val: string): void => {
     const isCorrect = firstNr * secondNr === Number(val);
+    !isCorrect && setNrOfWrongAnswers((prev) => prev + 1);
     const colorIndicator = isCorrect ? "#44bd32" : "#e74c3c";
     setBgColor(colorIndicator);
     const duplicateScore = [...scoreArray];
@@ -44,11 +48,12 @@ const ExerciseQuestions = ({
       setBgColor("transparent");
       setBlockSubmit(true);
       if (qIndex === questions.length - 1) {
-        alert("exercise over");
+        setOpenDialog(true);
       } else {
         setQIndex((prev) => prev + 1);
         setVal("");
         setBlockSubmit(false);
+        inputRef.current?.focus();
       }
     }, 900);
   };
@@ -81,6 +86,7 @@ const ExerciseQuestions = ({
           onChange={(e) => setVal(e.target.value)}
           onKeyDown={handleKeyDown}
           value={val}
+          inputRef={inputRef}
         />
       </InputBox>
       <InputBox>

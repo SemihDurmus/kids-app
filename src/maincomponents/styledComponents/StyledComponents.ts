@@ -59,7 +59,7 @@ export const SubmitButton = styled(Button)`
 `;
 
 export const QuestionWrapper = styled.div`
-  width: 12rem;
+  width: 14rem;
   height: 6rem;
   line-height: 6rem;
   text-align: center;
@@ -76,5 +76,17 @@ export const QuestionWrapper = styled.div`
     line-height: 4rem;
     font-size: 3rem;
     margin: 1rem auto;
+  }
+`;
+
+export const DialogRow = styled.p`
+  font-family: "Short stack";
+  &:last-of-type {
+    color: #d35400;
+    font-weight: bold;
+  }
+  span {
+    color: #c0392b;
+    font-weight: bold;
   }
 `;

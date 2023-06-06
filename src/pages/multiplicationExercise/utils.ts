@@ -38,7 +38,7 @@ export const createQuestions = (
     }
     return newShuffled;
   }
-  return shuffledQuestions.slice(nrOfQuestions - 1);
+  return shuffledQuestions.slice(0, nrOfQuestions);
 };
 
 export const createStatusContent = (
