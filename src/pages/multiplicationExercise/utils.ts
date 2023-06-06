@@ -8,6 +8,7 @@ export const optionsArray = Array.from({ length: 10 }, (_, index) =>
 export const ITEM_HEIGHT = 48;
 export const ITEM_PADDING_TOP = 8;
 export const RANGE = [2, 3, 4, 5, 6, 7, 8, 9];
+
 export const refineTitle = (selectionArray: string[]): string => {
   if (selectionArray.length === 1) {
     return `${selectionArray[0]}s`;
@@ -17,12 +18,6 @@ export const refineTitle = (selectionArray: string[]): string => {
   const formattedArray = duplicateArr.join(", ");
 
   return `${formattedArray} and ${lastElement}s`;
-};
-
-export const refineHelperText = (inputVal: number): string => {
-  if (inputVal > 20) return "Max is 20";
-  if (inputVal <= 0) return "Min is 1";
-  return "";
 };
 
 export const createQuestions = (
@@ -36,6 +31,13 @@ export const createQuestions = (
     });
   });
   const shuffledQuestions = shuffleArray(questionsArray);
+  if (nrOfQuestions - 1 > shuffledQuestions.length) {
+    const newShuffled = [...shuffledQuestions];
+    for (let i = shuffledQuestions.length; i < nrOfQuestions; i++) {
+      newShuffled.push(shuffledQuestions[i - shuffledQuestions.length]);
+    }
+    return newShuffled;
+  }
   return shuffledQuestions.slice(nrOfQuestions - 1);
 };
 

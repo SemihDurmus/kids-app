@@ -1,22 +1,21 @@
-import { ReactElement, useState, useEffect, useMemo } from "react";
+import { ReactElement, useState } from "react";
 
-import { createQuestions, refineTitle } from "./utils";
+import { refineTitle } from "./utils";
 import ExerciseOff from "./components/ExerciseOff";
 import {
   Styledh1,
   TitleBox,
   Wrapper,
 } from "maincomponents/styledComponents/StyledComponents";
-import SelectNumberOfQuestions from "./components/SelectNumberOfQuestions";
 import ExerciseQuestions from "./components/ExerciseQuestions";
+import SelectNumberOfQuestions from "./components/SelectNumberOfQuestions";
 
 export const Exercise = (): ReactElement => {
   const [exerciseOn, setExerciseOn] = useState(false);
   const [selection, setSelection] = useState<string[]>([]);
 
   const [showNrOfQuestions, setShowNrOfQuestions] = useState(true);
-  const [nrOfWrongAnswers, setNrOfWrongAnswers] = useState(0);
-  const [nrOfQuestions, setNrOfQuestions] = useState(10);
+  const [nrOfQuestions, setNrOfQuestions] = useState(1);
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -32,7 +31,6 @@ export const Exercise = (): ReactElement => {
     );
   }
 
-  const questions = createQuestions(nrOfQuestions, selection);
   return (
     <Wrapper>
       <TitleBox>
@@ -47,7 +45,10 @@ export const Exercise = (): ReactElement => {
           setShowNrOfQuestions={setShowNrOfQuestions}
         />
       ) : (
-        <ExerciseQuestions questions={questions} />
+        <ExerciseQuestions
+          nrOfQuestions={nrOfQuestions}
+          selection={selection}
+        />
       )}
     </Wrapper>
   );

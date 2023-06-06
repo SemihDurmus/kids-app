@@ -10,7 +10,8 @@ export interface ISetNumberOfQuestions {
   setShowNrOfQuestions: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface IExerciseQuestions {
-  questions: QuestionType[];
+  nrOfQuestions: number;
+  selection: string[];
 }
 
 export type QuestionType = { nr1: number; nr2: number };

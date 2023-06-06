@@ -1,30 +1,43 @@
 import { Box, TextField } from "@mui/material";
-import { ReactElement, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import styled from "styled-components";
 
 import { IExerciseQuestions } from "../types";
-import { createStatusContent } from "../utils";
+import { createQuestions, createStatusContent } from "../utils";
 import {
   InputBox,
   SubmitButton,
   QuestionWrapper,
 } from "maincomponents/styledComponents/StyledComponents";
 
-const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
+const ExerciseQuestions = ({
+  nrOfQuestions,
+  selection,
+}: IExerciseQuestions): ReactElement => {
   const [val, setVal] = useState("");
   const [bgColor, setBgColor] = useState("transparent");
   const [qIndex, setQIndex] = useState(0);
+
+  const questions = useMemo(
+    () => createQuestions(nrOfQuestions, selection),
+    [nrOfQuestions]
+  );
+
+  const [scoreArray, setScoreArrray] = useState<string[]>(
+    Array(questions.length).fill("#efefef")
+  );
 
   const firstNr = questions[qIndex].nr1;
   const secondNr = questions[qIndex].nr2;
 
   const handleSubmit = (val: string): void => {
-    const nrVal = Number(val);
-    if (firstNr * secondNr === nrVal) {
-      setBgColor("#44bd32");
-    } else {
-      setBgColor("#e74c3c");
-    }
+    const isCorrect = firstNr * secondNr === Number(val);
+    const colorIndicator = isCorrect ? "#44bd32" : "#e74c3c";
+    setBgColor(colorIndicator);
+    const duplicateScore = [...scoreArray];
+    duplicateScore[qIndex] = colorIndicator;
+    setScoreArrray(duplicateScore);
+
     setTimeout(() => {
       setBgColor("transparent");
       if (qIndex === questions.length - 1) {
@@ -71,10 +84,29 @@ const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
           OK
         </SubmitButton>
       </InputBox>
+      <ScoreBox>
+        {scoreArray.map((el, i) => (
+          <MiniBox key={i} sx={{ backgroundColor: el }}>
+            {i + 1}
+          </MiniBox>
+        ))}
+      </ScoreBox>
     </QuestionBox>
   );
 };
 
+const ScoreBox = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+const MiniBox = styled(Box)`
+  font-family: "Short stack";
+  width: 2rem;
+  text-align: center;
+  border: 1px solid #000;
+`;
 const QuestionBox = styled(Box)`
   width: 20rem;
   margin: 0 auto;

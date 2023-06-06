@@ -54,6 +54,7 @@ export const SubmitButton = styled(Button)`
       cursor: pointer;
       text-shadow: 0 0 7px #fff, 0 0 9px #fff;
     }
+    ${({ disabled }) => disabled && `background-color: #95a5a6;`}
   }
 `;
 

@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
-import { TextField } from "@mui/material";
+import { Slider } from "@mui/material";
 
-import { refineHelperText } from "../utils";
 import { ISetNumberOfQuestions } from "../types";
 import {
   InputBox,
@@ -13,11 +12,10 @@ export const SelectNumberOfQuestions = ({
   setNrOfQuestions,
   setShowNrOfQuestions,
 }: ISetNumberOfQuestions): ReactElement => {
-  const error = nrOfQuestions > 10 || nrOfQuestions <= 0;
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setNrOfQuestions(Number(e.target.value));
+  const handleChange = (e: Event, newValue: number | number[]) => {
+    if (typeof newValue === "number") {
+      setNrOfQuestions(newValue);
+    }
   };
   const handleClick = () => {
     setShowNrOfQuestions(false);
@@ -29,16 +27,15 @@ export const SelectNumberOfQuestions = ({
         How many questions you want to answer?
       </h4>
       <InputBox>
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          size="small"
-          type="number"
-          error={error}
-          sx={{ width: "6rem" }}
-          defaultValue={nrOfQuestions}
-          helperText={refineHelperText(nrOfQuestions)}
+        <Slider
+          aria-label="Small steps"
+          value={nrOfQuestions}
+          step={1}
+          marks
+          min={1}
+          max={50}
           onChange={handleChange}
+          valueLabelDisplay="auto"
         />
       </InputBox>
       <InputBox>
@@ -49,9 +46,8 @@ export const SelectNumberOfQuestions = ({
             },
           }}
           onClick={handleClick}
-          disabled={error}
         >
-          OK
+          Start
         </SubmitButton>
       </InputBox>
     </div>
