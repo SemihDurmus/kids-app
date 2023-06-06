@@ -13,6 +13,9 @@ const Back = () => {
         textAlign: "center",
         position: "absolute",
         bottom: "4rem",
+        "@media screen and (max-width: 768px)": {
+          bottom: "0.8rem",
+        },
       }}
     >
       {currentPath !== "/" && (

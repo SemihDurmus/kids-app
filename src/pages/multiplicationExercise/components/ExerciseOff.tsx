@@ -49,7 +49,15 @@ export default function ExerciseOff({
         </Styledh1>
       </TitleBox>
       <ControlsBox>
-        <FormControl sx={{ m: 1, width: 420 }}>
+        <FormControl
+          sx={{
+            m: 1,
+            width: 420,
+            "@media screen and (max-width: 768px)": {
+              width: 300,
+            },
+          }}
+        >
           <InputLabel id="multiple-chip-label">Select levels</InputLabel>
           <Select
             labelId="multiple-chip-label"
@@ -87,7 +95,13 @@ export default function ExerciseOff({
         <Button
           variant="contained"
           color="success"
-          sx={{ width: "20rem", mt: "3rem" }}
+          sx={{
+            width: "20rem",
+            mt: "3rem",
+            "@media screen and (max-width: 768px)": {
+              width: "16rem",
+            },
+          }}
           onClick={() => setExerciseOn(true)}
           disabled={!selection.length}
         >

@@ -1,14 +1,14 @@
+import styled from "styled-components";
 import { Box, TextField } from "@mui/material";
 import { ReactElement, useMemo, useState } from "react";
-import styled from "styled-components";
 
 import { IExerciseQuestions } from "../types";
-import { createQuestions, createStatusContent } from "../utils";
 import {
   InputBox,
   SubmitButton,
   QuestionWrapper,
 } from "maincomponents/styledComponents/StyledComponents";
+import { createQuestions, createStatusContent } from "../utils";
 
 const ExerciseQuestions = ({
   nrOfQuestions,
@@ -21,7 +21,8 @@ const ExerciseQuestions = ({
 
   const questions = useMemo(
     () => createQuestions(nrOfQuestions, selection),
-    [nrOfQuestions]
+
+    [nrOfQuestions, selection]
   );
 
   const [scoreArray, setScoreArrray] = useState<string[]>(
@@ -60,7 +61,14 @@ const ExerciseQuestions = ({
   };
   const status = createStatusContent(bgColor, firstNr, secondNr);
   return (
-    <QuestionBox sx={{ backgroundColor: bgColor }}>
+    <QuestionBox
+      sx={{
+        backgroundColor: bgColor,
+        "@media screen and (max-width: 768px)": {
+          width: "16rem",
+        },
+      }}
+    >
       <StatusBox>{status}</StatusBox>
       <QuestionWrapper>{`${firstNr} x ${secondNr}`}</QuestionWrapper>
       <InputBox>
@@ -110,6 +118,12 @@ const MiniBox = styled(Box)`
   width: 2rem;
   text-align: center;
   border: 1px solid #000;
+  @media (max-width: 768px) {
+    width: 1.2rem;
+    font-size: 0.8rem;
+    border-color: #34495e;
+    margin: 1px;
+  }
 `;
 const QuestionBox = styled(Box)`
   width: 20rem;
@@ -125,6 +139,9 @@ const StatusBox = styled(Box)`
   color: #efefef;
   width: 100%;
   height: 2.4rem;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export default ExerciseQuestions;
