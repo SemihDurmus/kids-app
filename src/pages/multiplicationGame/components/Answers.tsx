@@ -49,7 +49,9 @@ const OptionButton = styled.button`
   &:hover {
     background-color: #2d3436;
     cursor: pointer;
-    text-shadow: 0 0 7px #fff, 0 0 9px #fff;
+  }
+  &:active {
+    background-color: salmon;
   }
   @media (max-width: 768px) {
     width: 4rem;

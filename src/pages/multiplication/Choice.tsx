@@ -20,8 +20,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 4rem);
-  background-color: #ecf0f1;
+  height: 100vh;
   background-color: #009432;
 `;
 

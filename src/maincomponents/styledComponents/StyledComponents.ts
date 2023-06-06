@@ -26,7 +26,7 @@ export const ControlsBox = styled.div`
 `;
 
 export const Wrapper = styled(Container)`
-  height: calc(100vh - 4rem);
+  height: 100vh;
 `;
 
 export const InputBox = styled.div`

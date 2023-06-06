@@ -25,7 +25,6 @@ export const NavBar = () => {
     <Box
       sx={{
         flexGrow: 1,
-        height: "4rem",
         backgroundColor: "#6F1E51",
       }}
     >
