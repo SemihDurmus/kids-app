@@ -3,22 +3,24 @@ import { ReactElement, useState } from "react";
 import styled from "styled-components";
 
 import { IExerciseQuestions } from "../types";
+import { createStatusContent } from "../utils";
 import {
   InputBox,
   SubmitButton,
   QuestionWrapper,
 } from "maincomponents/styledComponents/StyledComponents";
-import { createStatusContent } from "../utils";
 
 const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
   const [val, setVal] = useState("");
   const [bgColor, setBgColor] = useState("transparent");
   const [qIndex, setQIndex] = useState(0);
 
-  const handleSubmit = () => {
+  const firstNr = questions[qIndex].nr1;
+  const secondNr = questions[qIndex].nr2;
+
+  const handleSubmit = (val: string): void => {
     const nrVal = Number(val);
-    const answer = questions[qIndex].nr1 * questions[qIndex].nr2;
-    if (answer === nrVal) {
+    if (firstNr * secondNr === nrVal) {
       setBgColor("#44bd32");
     } else {
       setBgColor("#e74c3c");
@@ -33,8 +35,12 @@ const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
       }
     }, 900);
   };
-  const firstNr = questions[qIndex].nr1;
-  const secondNr = questions[qIndex].nr2;
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      handleSubmit(val);
+    }
+  };
   const status = createStatusContent(bgColor, firstNr, secondNr);
   return (
     <QuestionBox sx={{ backgroundColor: bgColor }}>
@@ -48,6 +54,7 @@ const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
           type="number"
           sx={{ width: "6rem" }}
           onChange={(e) => setVal(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={val}
         />
       </InputBox>
@@ -58,7 +65,7 @@ const ExerciseQuestions = ({ questions }: IExerciseQuestions): ReactElement => {
               width: "6rem",
             },
           }}
-          onClick={handleSubmit}
+          onClick={() => handleSubmit(val)}
           disabled={val === ""}
         >
           OK
