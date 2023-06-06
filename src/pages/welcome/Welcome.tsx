@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import { TextField } from "@mui/material";
 import { ReactElement, useRef, useContext } from "react";
-import { Button, Container, TextField } from "@mui/material";
 
 import { UserContext } from "../../context/userContext";
 import {
+  InputBox,
   Styledh1,
+  SubmitButton,
   TitleBox,
+  Wrapper,
 } from "maincomponents/styledComponents/StyledComponents";
 import { addUserToStorage } from "utils/addUserToStorage";
 
@@ -33,7 +35,7 @@ export const Welcome = (): ReactElement => {
     );
   }
   return (
-    <Wrapper maxWidth={false}>
+    <Wrapper maxWidth={false} sx={{ backgroundColor: "#b8e994" }}>
       <TitleBox>
         <Styledh1>Welcome to Kids App</Styledh1>
       </TitleBox>
@@ -49,42 +51,10 @@ export const Welcome = (): ReactElement => {
         />
       </InputBox>
       <InputBox>
-        <StyledButton onClick={handleClick}>submit</StyledButton>
+        <SubmitButton onClick={handleClick}>submit</SubmitButton>
       </InputBox>
     </Wrapper>
   );
 };
 
-const Wrapper = styled(Container)`
-  background-color: #b8e994;
-  height: calc(100vh - 4rem);
-`;
-
-const InputBox = styled.div`
-  margin: 1rem auto;
-  display: flex;
-  justify-content: center;
-  input {
-    font-size: 1.2rem;
-    font-family: "Short stack", cursive;
-  }
-`;
-
-const StyledButton = styled(Button)`
-  &.MuiButton-root {
-    width: 20rem;
-    color: #fff;
-    background-color: #000;
-    font-size: 1.2rem;
-    font-weight: bold;
-    font-family: "Short stack", cursive;
-    border: 1px solid transparent;
-    &:hover {
-      border-color: #000;
-      background-color: #2d3436;
-      cursor: pointer;
-      text-shadow: 0 0 7px #fff, 0 0 9px #fff;
-    }
-  }
-`;
 export default Welcome;

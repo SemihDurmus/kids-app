@@ -2,17 +2,17 @@ import {
   Select,
   Button,
   MenuItem,
-  Container,
   InputLabel,
   FormControl,
   SelectChangeEvent,
 } from "@mui/material";
-import styled from "styled-components";
 
 import { ModeType } from "../types";
 import {
+  Wrapper,
   Styledh1,
   TitleBox,
+  ControlsBox,
 } from "maincomponents/styledComponents/StyledComponents";
 
 export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
@@ -28,7 +28,7 @@ export const GameOff = ({ setLevel, level, setMode }: IGameOff) => {
     fontWeight: "bold",
   };
   return (
-    <Wrapper maxWidth={false}>
+    <Wrapper maxWidth={false} sx={{ backgroundColor: "ffc312" }}>
       <TitleBox>
         <Styledh1>Multiplication Table Game</Styledh1>
       </TitleBox>
@@ -70,17 +70,5 @@ interface IGameOff {
   level: number;
   setLevel: React.Dispatch<React.SetStateAction<number>>;
 }
-const Wrapper = styled(Container)`
-  background-color: #ffc312;
-  height: calc(100vh - 4rem);
-`;
-
-const ControlsBox = styled.div`
-  padding-top: 6rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default GameOff;

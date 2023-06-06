@@ -1,8 +1,7 @@
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
-import styled from "styled-components";
+import { Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import { Button, Container } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -10,12 +9,12 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import { IExerciseOff } from "../types";
 import {
+  Wrapper,
   Styledh1,
   TitleBox,
+  ControlsBox,
 } from "maincomponents/styledComponents/StyledComponents";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+import { ITEM_HEIGHT, ITEM_PADDING_TOP, optionsArray } from "../utils";
 
 const MenuProps = {
   PaperProps: {
@@ -26,10 +25,6 @@ const MenuProps = {
   },
 };
 
-const optionsArray = Array.from({ length: 10 }, (_, index) =>
-  (index + 1).toString()
-);
-
 export default function ExerciseOff({
   selection,
   setSelection,
@@ -39,6 +34,7 @@ export default function ExerciseOff({
     const {
       target: { value },
     } = event;
+
     setSelection(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
@@ -46,16 +42,18 @@ export default function ExerciseOff({
   };
 
   return (
-    <Wrapper maxWidth={false}>
+    <Wrapper maxWidth={false} sx={{ backgroundColor: "#b8e994" }}>
       <TitleBox>
-        <Styledh1>Multiplication Table Exercise</Styledh1>
+        <Styledh1 style={{ color: "#0a3d62" }}>
+          Multiplication Table Exercise
+        </Styledh1>
       </TitleBox>
       <ControlsBox>
         <FormControl sx={{ m: 1, width: 420 }}>
-          <InputLabel id="demo-multiple-chip-label">Select levels</InputLabel>
+          <InputLabel id="multiple-chip-label">Select levels</InputLabel>
           <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
+            labelId="multiple-chip-label"
+            id="multiple-chip"
             multiple
             value={selection}
             onChange={handleChange}
@@ -78,7 +76,7 @@ export default function ExerciseOff({
                 sx={{
                   fontFamily: "Short stack",
                   fontWeight: "bold",
-                  color: "turquoise",
+                  color: "#60a3bc",
                 }}
               >
                 {opt}
@@ -91,23 +89,11 @@ export default function ExerciseOff({
           color="success"
           sx={{ width: "20rem", mt: "3rem" }}
           onClick={() => setExerciseOn(true)}
+          disabled={!selection.length}
         >
-          Start Exercising
+          Start Exercise
         </Button>
       </ControlsBox>
     </Wrapper>
   );
 }
-
-const Wrapper = styled(Container)`
-  background-color: #ffc312;
-  height: calc(100vh - 4rem);
-`;
-
-const ControlsBox = styled.div`
-  padding-top: 6rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;

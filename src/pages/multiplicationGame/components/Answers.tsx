@@ -5,9 +5,9 @@ const Answers = ({ options, handleClick }: IAnswers) => {
   return (
     <Wrapper>
       {options.map((el, index) => (
-        <StyledButton key={index} onClick={() => handleClick(el)}>
+        <OptionButton key={index} onClick={() => handleClick(el)}>
           {el.option}
-        </StyledButton>
+        </OptionButton>
       ))}
     </Wrapper>
   );
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledButton = styled.button`
+const OptionButton = styled.button`
   font-family: "Oswald";
   width: 6rem;
   height: 6rem;
